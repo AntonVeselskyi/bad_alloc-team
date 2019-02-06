@@ -1,3 +1,3 @@
 #!/bin/python
 
-print()
+print("test")
