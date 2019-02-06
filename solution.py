@@ -67,4 +67,8 @@ for r in reqs:
             elif r.video_id not in res[i[0]]:
                 res[i[0]].append(r.video_id)
 
-print(res)
+fr = open("./res.txt","w+")
+fr.write(str(len(res))+"\n")
+for server, videos in res.items():
+    fr.write(str(server)+" "+" ".join(str(x) for x in videos)+"\n")
+fr.close()
