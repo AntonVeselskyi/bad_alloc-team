@@ -54,4 +54,17 @@ for ep in endpoints:
     ep.sorted_cache_servs = list_sort
 
 
+cache_list = [cache_size] * cache_num
 
+res = dict()
+for r in reqs:
+    c = endpoints[r.ep_id].cache_servs
+    for i in endpoints[r.ep_id].sorted_cache_servs:
+        if cache_list[i[0]] > video_sizes[r.video_id] :
+            cache_list[i[0]] -= video_sizes[r.video_id]
+            if not res.get(i[0]):
+                res[i[0]] = [r.video_id]
+            elif r.video_id not in res[i[0]]:
+                res[i[0]].append(r.video_id)
+
+print(res)
