@@ -24,6 +24,7 @@ with open(sys.argv[1]) as f:
     video_sizes = ABreadline(f)
     endpoints = []
     reqs = []
+    #print(vid_num, cache_num)
 
     for i in range(ep_num):
         ping_dc, ep_cache_num = [int(x) for x in next(f).split()]
@@ -37,7 +38,7 @@ with open(sys.argv[1]) as f:
 
     #descending sort for reqs(we need process most popular videos first)
     reqs.sort(key=lambda rq: rq.req_num, reverse=True)
-    print([i.req_num for i in reqs])
+    #print([i.req_num for i in reqs])
 
 
 #yeahoo we have the inputs
@@ -47,10 +48,10 @@ with open(sys.argv[1]) as f:
 
 for ep in endpoints:
     list_sort = list(ep.cache_servs.items())
-    print(list_sort)
+    #print(list_sort)
     list_sort.sort(key=lambda ep: ep[1])
     #print([i[1] for i in list_sort])
-    print(list_sort)
+    #print(list_sort)
     ep.sorted_cache_servs = list_sort
 
 
