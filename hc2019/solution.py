@@ -21,7 +21,7 @@ def score(photo1: Photo, photo2: Photo):
 def ABreadline(f):
     return [int(x) for x in next(f).split()]
 
-
+sys.argv.append('a_example.txt')
 with open(sys.argv[1]) as f:
     N = ABreadline(f)[0]
     photos = []
@@ -40,12 +40,12 @@ with open(sys.argv[1]) as f:
     # Manager
     res = [photos[0]]
     del photos[0]
-    for i in photos:
+    for i in photos[:]:
         max_score_for_i = 0;
-        best_second_photo = 0;
+        best_second_photo = Photo(-1,'H',[]);
         for j in photos:
             jscore = score(i, j)
-            if jscore > max_score_for_i:
+            if jscore >= max_score_for_i:
                 max_score_for_i = jscore
                 best_second_photo = j
 
@@ -55,5 +55,5 @@ with open(sys.argv[1]) as f:
     fr = open("./res.txt", "w+")
     fr.write(str(len(res)) + "\n")
     for ph in res:
-        fr.write(ph.id + "\n")
+        fr.write(str(ph.id) + "\n")
     fr.close()
