@@ -25,20 +25,25 @@ def score(photo1: Photo, photo2: Photo):
 
 
 def merge_vertical(verticals: list):
-    chunk = int(N/30) + 3
+    chunk = int(N / 30) + 3
     res = []
-    while len(verticals) > 1:
-        tmp = max(verticals[:chunk if chunk < len(verticals) else len(verticals)-1], key=lambda p: score(verticals[0], p))
+    while len(verticals) - 2 > 3:
+        tmp = max(verticals[1:chunk if chunk < len(verticals) else len(verticals) - 1],
+                  key=lambda p: score(verticals[0], p))
         res.append(tmp + verticals[0])
         verticals.remove(tmp)
         del verticals[0]
 
+    if(len(res)>=2):
+        res.append(verticals[-1] + verticals[-2])
     return res
+
 
 def ABreadline(f):
     return [int(x) for x in next(f).split()]
 
-#sys.argv.append('a_example.txt')
+
+# sys.argv.append('a_example.txt')
 with open(sys.argv[1]) as f:
     N = ABreadline(f)[0]
     Hphotos = []
@@ -53,7 +58,7 @@ with open(sys.argv[1]) as f:
             if n == 1:
                 continue
             tags.add(word)
-        if(orient == 'H'):
+        if (orient == 'H'):
             Hphotos.append(Photo(photo_num, tags))
         else:
             Vphotos.append(Photo(photo_num, tags))
@@ -65,14 +70,15 @@ with open(sys.argv[1]) as f:
     Hphotos += merge_vertical(Vphotos)
     Hphotos = sorted(Hphotos)
 
-    chunck = int(N/30) + 2;
+    chunck = int(N / 30) + 2;
     res = [Hphotos[0]]
     del Hphotos[0]
     print(N)
-    for n in range(len(Hphotos[:])-1):
-        print("progress", n)
+    for n in range(len(Hphotos[:]) - 1):
+        #print("progress", n)
         max_score_for_i = 0
-        best_second_photo = max(Hphotos[:chunck if chunck < len(Hphotos) else len(Hphotos)-1 ], key=lambda p: score(res[-1], p))
+        best_second_photo = max(Hphotos[:chunck if chunck < len(Hphotos) else len(Hphotos) - 1],
+                                key=lambda p: score(res[-1], p))
 
         res.append(best_second_photo)
         Hphotos.remove(best_second_photo)
@@ -80,5 +86,5 @@ with open(sys.argv[1]) as f:
     res.append(Hphotos[-1])
     fr = open("./res.txt", "w+")
     fr.write(str(len(res)) + "\n")
-    fr.write("".join((str(i.id)+'\n' for i in res)))
+    fr.write("".join((str(i.id) + '\n' for i in res)))
     fr.close()
