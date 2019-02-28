@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import sys
+import datetime
 from enum import Enum
 
 
@@ -38,22 +39,27 @@ with open(sys.argv[1]) as f:
         photos.append(Photo(photo_num, orient, tags))
 
     # Manager
+    sys.stdout.flush()
+    print("W hi MMMMMMMMMMMMMMMMMMMMMMMMMMM")
+    print(datetime.datetime.now())
+    sys.stdout.flush()
+    gg = sorted(photos)
+    print(datetime.datetime.now())
+    sys.stdout.flush()
     res = [photos[0]]
     del photos[0]
+    l = len(photos)
     for i in photos[:]:
-        max_score_for_i = 0;
-        best_second_photo = Photo(-1,'H',[]);
-        for j in photos:
-            jscore = score(i, j)
-            if jscore >= max_score_for_i:
-                max_score_for_i = jscore
-                best_second_photo = j
+        max_score_for_i = 0
+        print(f"{i.id} in {l} proceeded")
+        before = datetime.datetime.now()
+        best_second_photo = max(photos[:], key=lambda p: score(i, p))
 
         res.append(best_second_photo)
         photos.remove(best_second_photo)
 
     fr = open("./res.txt", "w+")
     fr.write(str(len(res)) + "\n")
-    for ph in res:
-        fr.write(str(ph.id) + "\n")
+
+    fr.write("\n".join((str(i) for i in res)))
     fr.close()
