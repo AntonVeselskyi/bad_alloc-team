@@ -16,10 +16,24 @@ class Photo:
     def __lt__(self, other):
         return len(self.tags) < len(other.tags)
 
+    def __add__(self, other):
+        return Photo(str(self.id) + " " + str(other.id), self.tags | other.tags)
+
 
 def score(photo1: Photo, photo2: Photo):
     return min(len(photo1.tags - photo2.tags), len(photo2.tags - photo1.tags), len(photo1.tags & photo2.tags))
 
+
+def merge_vertical(verticals: list):
+    chunk = int(N/30) + 3
+    res = []
+    while len(verticals) > 1:
+        tmp = max(verticals[:chunk if chunk < len(verticals) else len(verticals)-1], key=lambda p: score(verticals[0], p))
+        res.append(tmp + verticals[0])
+        verticals.remove(tmp)
+        del verticals[0]
+
+    return res
 
 def ABreadline(f):
     return [int(x) for x in next(f).split()]
@@ -48,7 +62,7 @@ with open(sys.argv[1]) as f:
     # Manager
 
     Vphotos = sorted(Vphotos)
-    #Hphotos += merge_vertical(Vphotos)
+    Hphotos += merge_vertical(Vphotos)
     Hphotos = sorted(Hphotos)
 
     chunck = int(N/30) + 2;
