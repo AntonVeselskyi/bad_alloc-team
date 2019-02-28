@@ -11,6 +11,10 @@ class Photo:
         self.tags = tags
 
 
+def score(photo1: Photo, photo2: Photo):
+    return min(len(photo1.tags - photo2.tags), len(photo2.tags - photo1.tags), len(photo1.tags & photo2.tags))
+
+
 def ABreadline(f):
     return [int(x) for x in next(f).split()]
 
