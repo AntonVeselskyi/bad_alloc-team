@@ -6,9 +6,8 @@ from enum import Enum
 
 class Photo:
 
-    def __init__(self, id, orie, tags):
+    def __init__(self, id, tags):
         self.id = id
-        self.orient = orie
         self.tags = tags
 
     def __eq__(self, other):
@@ -28,7 +27,8 @@ def ABreadline(f):
 #sys.argv.append('a_example.txt')
 with open(sys.argv[1]) as f:
     N = ABreadline(f)[0]
-    photos = []
+    Hphotos = []
+    Vphotos = []
     for photo_num in range(N):
         orient = '';
         tags = set()
@@ -39,25 +39,31 @@ with open(sys.argv[1]) as f:
             if n == 1:
                 continue
             tags.add(word)
-        photos.append(Photo(photo_num, orient, tags))
+        if(orient == 'H'):
+            Hphotos.append(Photo(photo_num, tags))
+        else:
+            Vphotos.append(Photo(photo_num, tags))
 
+    print([v.id for v in Vphotos])
     # Manager
 
-    photos = sorted(photos)
+    Vphotos = sorted(Vphotos)
+    #Hphotos += merge_vertical(Vphotos)
+    Hphotos = sorted(Hphotos)
 
     chunck = int(N/30) + 2;
-    res = [photos[0]]
-    del photos[0]
+    res = [Hphotos[0]]
+    del Hphotos[0]
     print(N)
-    for n in range(len(photos[:])-1):
-        #print("progress", n)
+    for n in range(len(Hphotos[:])-1):
+        print("progress", n)
         max_score_for_i = 0
-        best_second_photo = max(photos[:chunck if chunck < len(photos) else len(photos)-1 ], key=lambda p: score(res[-1], p))
+        best_second_photo = max(Hphotos[:chunck if chunck < len(Hphotos) else len(Hphotos)-1 ], key=lambda p: score(res[-1], p))
 
         res.append(best_second_photo)
-        photos.remove(best_second_photo)
+        Hphotos.remove(best_second_photo)
 
-    res.append(photos[-1])
+    res.append(Hphotos[-1])
     fr = open("./res.txt", "w+")
     fr.write(str(len(res)) + "\n")
     fr.write("".join((str(i.id)+'\n' for i in res)))
