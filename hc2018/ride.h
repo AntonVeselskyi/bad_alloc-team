@@ -1,8 +1,14 @@
+#pragma once
+
+#include <utility>
+using namespace std;
+using Pos = pair<int, int>;
+
 struct Ride
 {
     int index;
-    pair<int, int> start_location;
-    pair<int, int> end_location;
-    int start;
+    Pos start_pos;
+    Pos end_pos;
+    int earliest_start;
     int end;
 };

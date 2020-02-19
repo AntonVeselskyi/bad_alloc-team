@@ -3,6 +3,7 @@
 #include <queue>
 #include <string>
 
+#include "settings.h"
 using namespace std;
 
 queue<Ride*> parse_data(const char *fileName, Settings &params)
@@ -17,20 +18,20 @@ queue<Ride*> parse_data(const char *fileName, Settings &params)
         file >> params.R >> params.C >> params.F >> params.N >> params.B >> params.T;
 
         int index = 0;
-        while (index < n)
+        while (index < params.N)
         {
             Ride *rd = new Ride();
             rd->index = index;
 
             int a = 0, b = 0;
             file >> a >> b;
-            rd->start_location = make_pair(a, b);
+            rd->start_pos = make_pair(a, b);
 
             int x = 0, y = 0;
             file >> x >> y;
-            rd->end_location = make_pair(x, y);
+            rd->end_pos = make_pair(x, y);
 
-            file >> rd->start >> rd->end;
+            file >> rd->earliest_start >> rd->end;
 
             result.push(rd);
             ++index;

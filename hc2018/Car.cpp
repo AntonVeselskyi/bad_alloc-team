@@ -1,4 +1,5 @@
 #include "Car.h"
+#include <cmath>
 
 inline uint get_distance(Pos start, Pos end) {
     return abs(end.first - start.first) + abs(end.second - end.first);
@@ -15,7 +16,8 @@ void Car::tick(uint step) {
             return;
         }
 
-        ride = rides.pop();
+        ride = rides.front();
+        rides.pop();
 
         uint to_start = max(
                 get_distance(position, ride->start_pos),

@@ -1,14 +1,15 @@
 #ifndef HASHCODEPREPARATION_CAR_H
 #define HASHCODEPREPARATION_CAR_H
 
+#include <utility>
 #include <queue>
+
 #include "ride.h"
 
 using namespace std;
 
 #include <utility>
 
-using Pos = pair<int, int>;
 using uint = unsigned int;
 
 class Car {
@@ -20,11 +21,9 @@ private:
     Pos position;
     uint steps_to_dest;
 public:
-    Car(queue<Ride *> rides);
+    Car(queue<Ride *> &rides);
 
     void tick(uint step);
-
-    bool reach_end();
 
     vector<uint> get_done_rides();
 };
