@@ -4,18 +4,22 @@ inline uint get_distance(Pos start, Pos end) {
     return abs(end.first - start.first) + abs(end.second - end.first);
 }
 
-Car::Car(queue<Ride *> rides) : rides(rides),
+Car::Car(queue<Ride *>& rides) : rides(rides),
                                 ride(nullptr),
                                 steps_to_dest(0),
                                 position(0, 0) {}
 
 void Car::tick(uint step) {
     if (ride == nullptr) {
+        if (!rides.empty()){
+            return;
+        }
+
         ride = rides.pop();
 
         uint to_start = max(
                 get_distance(position, ride->start_pos),
-                ride->earliest_start - step,
+                ride->earliest_start - step
         );
         uint from_start_to_end = get_distance(ride->start_pos, ride->end_pos);
 
@@ -25,7 +29,9 @@ void Car::tick(uint step) {
     steps_to_dest--;
 
     if (!steps_to_dest) {
+        done_rides.push_back(ride->index);
         position = ride->end_pos;
+
         delete ride;
         ride = nullptr;
     }
