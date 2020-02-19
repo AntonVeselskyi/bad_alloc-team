@@ -1,29 +1,29 @@
 #include "Car.h"
 #include <cmath>
 
-inline uint get_distance(Pos start, Pos end) {
-    return abs(end.first - start.first) + abs(end.second - end.first);
+inline int get_distance(Pos start, Pos end) {
+    return abs(end.first - start.first) + abs(end.second - start.second);
 }
 
-Car::Car(queue<Ride *>& rides) : rides(rides),
-                                ride(nullptr),
-                                steps_to_dest(0),
-                                position(0, 0) {}
+Car::Car(queue<Ride *> &rides) : rides(rides),
+                                 ride(nullptr),
+                                 steps_to_dest(0),
+                                 position(0, 0) {}
 
 void Car::tick(uint step) {
     if (ride == nullptr) {
-        if (!rides.empty()){
+        if (rides.empty()) {
             return;
         }
 
         ride = rides.front();
         rides.pop();
 
-        uint to_start = max(
+        int to_start = max(
                 get_distance(position, ride->start_pos),
-                ride->earliest_start - step
+                ride->earliest_start - ((int) step)
         );
-        uint from_start_to_end = get_distance(ride->start_pos, ride->end_pos);
+        int from_start_to_end = get_distance(ride->start_pos, ride->end_pos);
 
         steps_to_dest = to_start + from_start_to_end;
     }
