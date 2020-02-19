@@ -16,6 +16,9 @@ private:
     Ride *ride;
     queue<Ride *> &rides;
     vector<uint> done_rides;
+
+    Pos position;
+    uint steps_to_dest;
 public:
     Car(queue<Ride *> rides);
 
