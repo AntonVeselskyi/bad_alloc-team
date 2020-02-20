@@ -32,11 +32,11 @@ int main(int argc, char *argv[])
     for(int i = 0; i < libCount; ++i)
      {
          Lib new_lib;
-         parser.get_next_line(new_lib.book_num, new_lib.sign_lenth, new_lib.books_per_day);
-         for(int j = 0, book_id; j < new_lib.book_num)
+         parser.get_next_line(new_lib.book_num, new_lib.sign_length, new_lib.books_per_day);
+         for(int j = 0, book_id; j < new_lib.book_num; ++j)
          {
             parser.get_next_line(book_id);
-            new_lib.book_set.push_back(global_books[book_id]); 
+            new_lib.book_set.insert(global_books[book_id]); 
          }
          global_libs.emplace_back(std::move(new_lib));
      }
