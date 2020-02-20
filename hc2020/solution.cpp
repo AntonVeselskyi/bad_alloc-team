@@ -69,6 +69,20 @@ int main(int argc, char *argv[])
             //scan_center.tick(step);
     }
 
+    auto res = scan_center.get_processes_libraries();
+
+    FileOutput output(string(argv[1])+"_res");
+    output.write_line(res.size());
+
+    for (auto it: res) {
+        output.write_line(it.lib_id, it.scanned_books.size());
+        for (auto book: it.scanned_books) {
+            output.write(book->number);
+            output.write(" ");
+        }
+        output.write("\n");
+    }
+
 
 
     // //WRITE RESULTS TO FILE
