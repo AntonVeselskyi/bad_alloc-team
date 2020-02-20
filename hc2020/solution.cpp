@@ -5,7 +5,8 @@ using namespace std;
 
 struct Settings
 {
-    unsigned A, B, C;
+    unsigned A, B;
+    string C;
 }gc; //global conf
 
 int main(int argc, char *argv[])
