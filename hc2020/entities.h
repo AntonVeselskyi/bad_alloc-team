@@ -27,6 +27,6 @@ struct Lib
 
     bool operator<(const Lib& rhs) const
     {
-        return make_tuple(-this->sign_length, this->j_score) > make_tuple(-rhs.sign_length, rhs.j_score);
+        return this->j_score >  rhs.j_score;
     } 
 };
