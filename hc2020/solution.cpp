@@ -1,5 +1,7 @@
 #include <iostream>
 #include <list>
+#include <vector>
+#include <set>
 #include "getline.h"
 #include "output.h"
 
@@ -8,8 +10,15 @@ using namespace std;
 struct Book
 {
     int number;
-    int score;
+    int award;
 };
+
+struct Lib
+{
+    int sign_lenth, books_per_day, book_num; 
+    std::set<Book> book_set;
+};
+
 
 int main(int argc, char *argv[])
 {
@@ -18,19 +27,30 @@ int main(int argc, char *argv[])
     int booksCount,
         libCount,
         days;
+    vector<Book> global_books;
 
     parser.get_next_line(booksCount, libCount, days);
 
     cout << booksCount << libCount << days << endl;
 
-    // for(int i = 0; i <  gc.B; ++i)
-    // {
-    //     int first, second;
-    //     parser.get_next_line(first, second);
+     for(int i = 0; i < booksCount; ++i)
+     {
+         int award;
+         parser.get_next_line(award);
+         global_books.emplace_back(Book{i,award});
+     }
 
-    //     cout << first << second << endl;
-    // }
+    std::list<Lib> global_libs;
+    for(int i = 0; i < libCount; ++i)
+     {
+         int award;
+         //parser.get_next_line(award);
+         //global_books.emplace_back(Book{i,award});
+     }
 
+    cout << endl;
+    for(auto u : global_books)
+        cout << u.number << " " <<u.award << endl;
 
     // //PROCESS INPUT
 
