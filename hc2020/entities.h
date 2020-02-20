@@ -8,10 +8,11 @@ struct Book
 {
     int number;
     int award;
-     bool operator<(const Book& rhs)
+     bool operator<(const Book& rhs) const
     {
         return this->award < rhs.award;
     }
+
 };
 
 struct Lib
