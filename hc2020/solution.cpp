@@ -36,15 +36,26 @@ int main(int argc, char *argv[])
          for(int j = 0, book_id; j < new_lib.book_num; ++j)
          {
             parser.get_next_line(book_id);
-            new_lib.book_set.insert(global_books[book_id]); 
+            new_lib.book_set.insert(&global_books[book_id]); 
          }
          global_libs.emplace_back(std::move(new_lib));
      }
 
+    //books
     cout << endl;
     for(auto u : global_books)
         cout << u.number << " " <<u.award << endl;
 
+    //libs
+    cout << endl<< endl<< endl;
+    for(auto u : global_libs)
+    {
+        cout << u.book_num << " " <<u.sign_length << " "<<u.books_per_day<< endl;
+        //for(for int i =0; i < u.book_num; ++i)
+        //{
+            
+        //}
+    }
     // //PROCESS INPUT
 
 
