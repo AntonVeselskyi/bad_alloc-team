@@ -50,7 +50,7 @@ public:
 
             for (int i = 0; i < l.books_per_day && !l.book_set.empty(); i++) {
                 auto b = *l.book_set.begin();
-                b->not_scanned = true;
+                b->is_not_scanned = true;
                 l.book_set.erase(l.book_set.begin());
                 l.scanned_books.insert(b);
             }
