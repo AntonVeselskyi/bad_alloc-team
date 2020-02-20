@@ -8,6 +8,8 @@ struct Book
 {
     int number;
     int award;
+    bool is_scanned = false;
+
      bool operator<(const Book& rhs) const
     {
         return this->award < rhs.award;
