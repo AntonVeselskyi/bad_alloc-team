@@ -24,4 +24,9 @@ public:
         size_t el_num_to_write =  sizeof... (args);
         auto dummy = {(ofs << args << (--el_num_to_write ? ' ' : '\n'), 0)...};
     }
+
+    template<typename T>
+    void write(T& v){
+        ofs << v;
+    }
 };
