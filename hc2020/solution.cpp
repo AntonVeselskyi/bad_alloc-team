@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
     for(int i = 0; i < libCount; ++i)
      {
          Lib new_lib;
+         new_lib.lib_id = i;
          parser.get_next_line(new_lib.book_num, new_lib.sign_length, new_lib.books_per_day);
          for(int j = 0, book_id; j < new_lib.book_num; ++j)
          {

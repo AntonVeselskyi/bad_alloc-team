@@ -18,7 +18,7 @@ struct Book
 struct Lib
 {
     long long j_score = 0;
-    int sign_length, books_per_day, book_num;
+    int sign_length, books_per_day, book_num, lib_id;
     std::set<Book*> book_set;
     std::set<Book*> scanned_books;
 
