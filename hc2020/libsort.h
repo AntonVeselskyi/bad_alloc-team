@@ -12,6 +12,7 @@ long long lib_score(list<Lib>& libs, int days_left)
 {
     for (Lib &lib: libs)
     {
+        lib.j_score = 0;
         long long books_to_scan = (days_left - lib.sign_length) * lib.books_per_day;
         for(Book *book:lib.book_set)
         {
