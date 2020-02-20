@@ -2,7 +2,7 @@
 // Created by Borys on 20.02.2020.
 //
 
-
+#pragma once
 #include "entities.h"
 
 #include <numeric>

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <list>
+#include "libsort.h"
 #include "entities.h"
 
 using std::list;
@@ -19,6 +20,7 @@ private:
             if (!libraries.empty()) {
                 processed_libraries.push_back(libraries.front());
                 libraries.pop_front();
+                lib_score(libraries);
             }
 
             // There are more libraries to sing up
