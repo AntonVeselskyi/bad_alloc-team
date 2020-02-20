@@ -12,7 +12,7 @@ struct Book
 
      bool operator<(const Book& rhs) const
     {
-        return this->award < rhs.award;
+        return this->award > rhs.award;
     }
 
 };
