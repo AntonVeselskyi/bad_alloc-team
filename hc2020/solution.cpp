@@ -32,10 +32,11 @@ int main(int argc, char *argv[])
 
     //WRITE RESULTS TO FILE
     int res1 = 200, res2 = 99;
+    float res3 = 2.2;
     auto res_vec = {"cool", "stuff"};
     
     FileOutput output(string(argv[1])+"_res");
-    output.write_line(res1, res2);
+    output.write_line(res1, res2, res3);
     for(auto el: res_vec)
         output.write_line(el);
 

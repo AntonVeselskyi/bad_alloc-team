@@ -22,13 +22,6 @@ public:
             return;
 
         size_t el_num_to_write =  sizeof... (args);
-        for (auto arg: {args...})
-        {
-            //for the last one -- add endl
-            if(!--el_num_to_write)
-                ofs << arg << endl;
-            else
-                ofs << arg << " ";
-        }
+        auto dummy = {(ofs << args << (--el_num_to_write ? ' ' : '\n'), 0)...};
     }
 };
