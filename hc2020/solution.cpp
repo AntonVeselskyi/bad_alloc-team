@@ -6,6 +6,7 @@
 #include "getline.h"
 #include "output.h"
 #include "entities.h"
+#include "scanning_center.h"
 
 
 int main(int argc, char *argv[])
@@ -56,7 +57,15 @@ int main(int argc, char *argv[])
             
         //}
     }
-    // //PROCESS INPUT
+
+    //SORT LIBS
+    ScanningCenter scan_center(global_libs);
+    for(unsigned step = 0; step < days; ++step)
+    {
+            scan_center.tick(step);
+    }
+
+    //PROCESS LIBS IN SCAAN CENTER
 
 
     // //WRITE RESULTS TO FILE

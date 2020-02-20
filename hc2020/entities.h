@@ -21,4 +21,9 @@ struct Lib
     int sign_length, books_per_day, book_num;
     std::set<Book*> book_set;
     std::set<Book*> scanned_books;
+
+    bool operator<(const Lib& rhs) const
+    {
+        return this->j_score < rhs.j_score;
+    } 
 };
