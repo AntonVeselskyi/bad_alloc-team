@@ -50,11 +50,17 @@ public:
                 continue;
             }
 
-            for (int i = 0; i < l.books_per_day && !l.book_set.empty(); i++) {
+            int scanned_book_per_day = 0;
+            while (scanned_book_per_day < l.books_per_day && !l.book_set.empty()) {
                 auto b = *l.book_set.begin();
-                b->is_not_scanned = false;
                 l.book_set.erase(l.book_set.begin());
-                l.scanned_books.insert(b);
+
+                if (b->is_not_scanned) {
+                    b->is_not_scanned = false;
+                    l.scanned_books.insert(b);
+                    scanned_book_per_day++;
+                }
+
             }
         }
     }
