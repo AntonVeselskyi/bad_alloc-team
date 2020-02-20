@@ -10,7 +10,6 @@ class ScanningCenter {
 private:
     list<Lib> &libraries;
     list<Lib> processed_libraries;
-    list<Lib> scanned_libraries;
 
     Lib *sign_up_library;
     int days_to_sign_up_end;
@@ -39,7 +38,6 @@ private:
 public:
     explicit ScanningCenter(list<Lib> &libraries) : libraries(libraries),
                                                     processed_libraries(),
-                                                    scanned_libraries(),
                                                     sign_up_library(nullptr),
                                                     days_to_sign_up_end(0) {}
 
@@ -47,6 +45,10 @@ public:
         sign_in_process();
 
         for (auto &l : processed_libraries) {
+            if (l.book_set.empty()){
+                continue;
+            }
+
             for (int i = 0; i < l.books_per_day && !l.book_set.empty(); i++) {
                 auto b = *l.book_set.begin();
                 l.book_set.erase(l.book_set.begin());
