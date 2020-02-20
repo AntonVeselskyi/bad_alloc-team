@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 
     parser.get_next_line(booksCount, libCount, days);
 
-    cout << booksCount << libCount << days << endl;
+    //cout << booksCount << libCount << days << endl;
 
     for (int i = 0; i < booksCount; ++i) {
         int award;
@@ -41,24 +41,24 @@ int main(int argc, char *argv[]) {
     }
 
     //books
-    cout << endl;
-    for (auto u : global_books)
-        cout << u.number << " " << u.award << endl;
+    //cout << endl;
+    //for (auto u : global_books)
+    //    cout << u.number << " " << u.award << endl;
 
     //libs
-    cout << endl << endl << endl;
-    for (auto u : global_libs) {
-        cout << u.book_num << " " << u.sign_length << " " << u.books_per_day << endl;
+    //cout << endl << endl << endl;
+    //for (auto u : global_libs) {
+    //    cout << u.book_num << " " << u.sign_length << " " << u.books_per_day << endl;
         //for(for int i =0; i < u.book_num; ++i)
         //{
 
         //}
-    }
+    //}
 
     //SORT LIBS
-    lib_score(global_libs);
+    lib_score(global_libs, days);
     //PROCESS LIBS IN SCAAN CENTER
-    ScanningCenter scan_center(global_libs);
+    ScanningCenter scan_center(global_libs, days);
     for (unsigned step = 0; step < days; ++step) {
         scan_center.tick(step);
     }

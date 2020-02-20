@@ -1,3 +1,4 @@
-for i in ./input/*.in ;
-do ./solution $i;
+for i in ./input/*.txt ;
+do echo $i 
+./solution $i;
 done
