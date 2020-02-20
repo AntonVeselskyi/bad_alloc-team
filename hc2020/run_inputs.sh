@@ -1,3 +1,3 @@
-for i in ./input/* ;
+for i in ./input/*.in ;
 do ./solution $i;
 done
