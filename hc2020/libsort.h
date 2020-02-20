@@ -7,7 +7,6 @@
 
 #include <numeric>
 #include <list>
-#include <algorithms>
 
 long long lib_score(list<Lib>& libs)
 {
@@ -20,5 +19,5 @@ long long lib_score(list<Lib>& libs)
         lib.j_score /= lib.books_per_day;
     }
 
-    std::sort(libs.begin(), libs.end());
+    libs.sort();
 }

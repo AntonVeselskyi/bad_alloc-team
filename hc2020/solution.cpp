@@ -7,6 +7,7 @@
 #include "output.h"
 #include "entities.h"
 #include "scanning_center.h"
+#include "libsort.h"
 
 
 int main(int argc, char *argv[])
@@ -60,13 +61,14 @@ int main(int argc, char *argv[])
     }
 
     //SORT LIBS
+    lib_score(global_libs);
+    //PROCESS LIBS IN SCAAN CENTER
     ScanningCenter scan_center(global_libs);
     for(unsigned step = 0; step < days; ++step)
     {
-            scan_center.tick(step);
+            //scan_center.tick(step);
     }
 
-    //PROCESS LIBS IN SCAAN CENTER
 
 
     // //WRITE RESULTS TO FILE
