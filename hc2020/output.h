@@ -12,7 +12,7 @@ class FileOutput
     ofstream ofs;
 
 public:
-    FileOutput(string filename): ofs(filename){}
+    explicit FileOutput(const string& filename): ofs(filename){}
     ~FileOutput(){ofs.close();}
     
     template<class... Args>

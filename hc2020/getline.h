@@ -10,7 +10,7 @@ class FileParser
     private:
     ifstream ifs;
     public:
-    FileParser(string filename): ifs(filename){}
+    explicit FileParser(const string& filename): ifs(filename){}
     ~FileParser(){ifs.close();}
 
     template<typename ...Args>
