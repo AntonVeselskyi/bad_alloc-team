@@ -1,23 +1,9 @@
 #include <iostream>
 #include <list>
 #include <vector>
-#include <set>
 #include "getline.h"
 #include "output.h"
-
-using namespace std;
-
-struct Book
-{
-    int number;
-    int award;
-};
-
-struct Lib
-{
-    int sign_lenth, books_per_day, book_num; 
-    std::set<Book> book_set;
-};
+#include "entities.h"
 
 
 int main(int argc, char *argv[])
