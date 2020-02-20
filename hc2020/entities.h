@@ -8,7 +8,7 @@ struct Book
 {
     int number;
     int award;
-    bool is_scanned = false;
+    bool is_not_scanned = true;
 
      bool operator<(const Book& rhs) const
     {
