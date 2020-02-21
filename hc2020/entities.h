@@ -22,11 +22,16 @@ struct Lib
 {
     long long j_score = 0;
     int sign_length, books_per_day, book_num, lib_id;
-    std::set<Book*> book_set;
-    std::set<Book*> scanned_books;
+    std::list<Book*> book_set;
+    std::list<Book*> scanned_books;
 
     bool operator<(const Lib& rhs) const
     {
         return this->j_score >  rhs.j_score;
-    } 
+    }
+
+    bool operator==(const Lib& rhs) const
+    {
+        return this->lib_id == rhs.lib_id;
+    }
 };

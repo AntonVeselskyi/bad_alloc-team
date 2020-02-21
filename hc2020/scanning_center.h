@@ -57,7 +57,7 @@ public:
 
                 if (b->is_not_scanned) {
                     b->is_not_scanned = false;
-                    l.scanned_books.insert(b);
+                    l.scanned_books.push_back(b);
                     scanned_book_per_day++;
                 }
 
