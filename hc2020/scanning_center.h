@@ -27,6 +27,10 @@ private:
             // There are more libraries to sing up
             if (!libraries.empty()) {
                 days_to_sign_up_end = libraries.front().sign_length;
+                for(Book *b : libraries.front().book_set)
+                {
+                    b->reserved = true;
+                }
             }
         }
 
