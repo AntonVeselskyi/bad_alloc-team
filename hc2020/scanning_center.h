@@ -12,17 +12,13 @@ private:
     list<Lib> &libraries;
     list<Lib> processed_libraries;
 
-    int days;
     int days_to_sign_up_end;
 
-    inline void sign_in_process(int step) {
-        if (!days_to_sign_up_end) {
+    inline void sign_in_process() {
+        if (!days_to_sign_up_end && !libraries.empty()) {
             // Add library to list of scanning libraries
-            if (!libraries.empty()) {
-                processed_libraries.push_back(libraries.front());
-                libraries.pop_front();
-                lib_score(libraries, days - step);
-            }
+            processed_libraries.push_back(libraries.front());
+            libraries.pop_front();
 
             // There are more libraries to sing up
             if (!libraries.empty()) {
@@ -38,12 +34,12 @@ private:
 
 public:
     explicit ScanningCenter(list<Lib> &libraries, int days) : libraries(libraries),
-                                                              days(days),
-                                                              processed_libraries(),
-                                                              days_to_sign_up_end(0) {}
+                                                              processed_libraries() {
+        days_to_sign_up_end = libraries.front().sign_length;
+    }
 
-    void tick(int step) {
-        sign_in_process(step);
+    void tick() {
+        sign_in_process();
 
         for (auto &l : processed_libraries) {
             if (l.book_set.empty()) {
@@ -53,14 +49,8 @@ public:
             int scanned_book_per_day = 0;
             while (scanned_book_per_day < l.books_per_day && !l.book_set.empty()) {
                 auto b = *l.book_set.begin();
-                l.book_set.erase(l.book_set.begin());
-
-                if (b->is_not_scanned) {
-                    b->is_not_scanned = false;
-                    l.scanned_books.insert(b);
-                    scanned_book_per_day++;
-                }
-
+                l.book_set.erase(b);
+                l.scanned_books.insert(b);
             }
         }
     }

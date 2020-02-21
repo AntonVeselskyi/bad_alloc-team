@@ -8,13 +8,13 @@
 #include <numeric>
 #include <list>
 
-long long lib_score(list<Lib>& libs, int days_left)
-{
-    vector<int> AVE;
-    for (Lib &lib: libs)
-        AVE.emplace_back(lib.sign_length);
+void lib_score(list<Lib> &libs, int days_left) {
+    long long sign_up_days = 0;
 
-    double AS = std::accumulate(AVE.begin(), AVE.end(), 0.0) / AVE.size();
+    for (Lib &lib: libs)
+        sign_up_days += lib.sign_length;
+
+    double AS = sign_up_days / ((float) libs.size());
     for (Lib &lib: libs)
     {
 
@@ -27,14 +27,34 @@ long long lib_score(list<Lib>& libs, int days_left)
                 break;
             }
 
-            if (book->is_not_scanned)
-            {
-                lib.j_score += book->award;
-                books_to_scan--;
-            }
+            lib.j_score += book->award;
+            books_to_scan--;
         }
 
         lib.j_score/=(lib.sign_length/AS);
     }
     libs.sort();
+}
+
+std::list<Lib> lib_sort(list<Lib> libs, int days) {
+    int current_day = 0;
+    list<Lib> libs_to_process;
+
+    while (current_day < days && !libs.empty()) {
+        lib_score(libs, days - current_day);
+
+        auto lib = libs.front();
+        libs.pop_front();
+
+        libs_to_process.push_back(lib);
+        current_day += lib.sign_length;
+
+        for (auto &l : libs) {
+            for (auto &b : lib.book_set) {
+                l.book_set.erase(b);
+            }
+        }
+    }
+
+    return libs_to_process;
 }

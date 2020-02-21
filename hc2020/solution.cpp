@@ -1,7 +1,6 @@
 #include <iostream>
 #include <list>
 #include <vector>
-#include <set>
 #include <utility>
 #include "getline.h"
 #include "output.h"
@@ -56,11 +55,11 @@ int main(int argc, char *argv[]) {
     //}
 
     //SORT LIBS
-    lib_score(global_libs, days);
+    list<Lib> sorted_libs = move(lib_sort(global_libs, days));
     //PROCESS LIBS IN SCAAN CENTER
-    ScanningCenter scan_center(global_libs, days);
+    ScanningCenter scan_center(sorted_libs, days);
     for (unsigned step = 0; step < days; ++step) {
-        scan_center.tick(step);
+        scan_center.tick();
     }
 
     auto res = scan_center.get_processes_libraries();
@@ -68,7 +67,7 @@ int main(int argc, char *argv[]) {
     FileOutput output(string(argv[1])+"_res");
     output.write_line(res.size());
 
-    for (auto it: res) {
+    for (const auto &it: res) {
         output.write_line(it.lib_id, it.scanned_books.size());
         for (auto book: it.scanned_books) {
             output.write(book->number);
