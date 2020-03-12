@@ -35,13 +35,9 @@ struct Room {
     vector<vector<Place>> area;
 };
 
-struct User {
-    std::string company;
-    int bonus;
-    std::list<std::string> skills;
-    Role role;
-    Pos pos = NOT_SET;
-};
+Place get_place(Room &room, Pos &pos) {
+    return room.area[pos.first][pos.second];
+}
 
 long long score(const User &a, const User &b)
 {
@@ -64,5 +60,21 @@ long long score(const User &a, const User &b)
     return WP+BP;
 }
 
+struct User {
+    std::string company;
+    int bonus;
+    float avg_cluster_score;
+    std::list<std::string> skills;
+    Role role;
+    Pos pos = NOT_SET;
+
+    bool operator<(const Lib& rhs) const
+    {
+        if(role == PM)
+            return this->bonus >  rhs.bonus;
+        else //DEV
+            return this->avg_cluster_score >  rhs.avg_cluster_score;
+    }
+};
 
 #endif //REPLY2020_ENTITIES_H

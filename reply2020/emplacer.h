@@ -73,9 +73,6 @@ User *freeUser(Users &users) {
     return nullptr;
 }
 
-Place get_place(Room &room, Pos &pos) {
-    return room.area[pos.first][pos.second];
-}
 
 void set_place(Room &room, Pos &pos, Place &place) {
     room.area[pos.first][pos.second] = place;
