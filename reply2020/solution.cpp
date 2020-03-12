@@ -16,7 +16,7 @@ void print_users(FileOutput &fo, const vector<User> &users)
         if (us.pos == NOT_SET)
             fo.write_line('X');
         else
-            fo.write_line(us.pos.first, us.pos.second);
+            fo.write_line(us.pos.second, us.pos.first);
     }
 }
 
@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
     auto pms_map = clusterize(pms);
     
     //TEST LOG
+#ifdef DEBUG
     for (auto &x: devs_map)
     {
         cout << x.first << " has workers: ";
@@ -91,13 +92,11 @@ int main(int argc, char *argv[])
             cout << i->bonus;
         cout << endl;
     }
-
+#endif
     emplace(room, devs_map, pms_map);
 
     //OUTPUT
     FileOutput output(string(argv[1])+"_res");
-    //NUM OF DEVs and PMs
-    output.write_line(devs.size(), devs.size());
     //print out devs and pms
     print_users(output, devs);
     print_users(output, pms);
