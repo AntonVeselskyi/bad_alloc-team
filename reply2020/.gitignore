@@ -1,2 +1,3 @@
 solution
 cmake-build-debug
+*.txt_res

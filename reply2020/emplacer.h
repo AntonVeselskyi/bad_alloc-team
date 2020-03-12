@@ -18,15 +18,28 @@ bool is_place_free(Place &place) {
     return place == Place::DEV_FREE || place == Place::PM_FREE;
 }
 
-Pos free_place(Room &room) {
+bool contains(vector<Pos> &vec, Pos &value) {
+    return find(vec.begin(), vec.end(), value) != vec.end();
+}
+
+Pos free_place(Room &room, vector<Pos> &visited) {
     for (int i = 0; i < room.height; i++) {
         for (int j = 0; j < room.width; j++) {
-            if (is_place_free(room.area[i][j]))
-                return Pos(i, j);
+            if (is_place_free(room.area[i][j])) {
+                Pos pos(i, j);
+
+                if (!contains(visited, pos))
+                    return pos;
+            }
         }
     }
 
     return NOT_SET;
+}
+
+Pos free_place(Room &room) {
+    vector<Pos> visited;
+    return free_place(room, visited);
 }
 
 Pos add_pos(Pos &a, Pos &b) {
