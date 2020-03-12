@@ -7,6 +7,7 @@
 #include "output.h"
 #include "entities.h"
 #include "clusterize.h"
+#include "emplacer.h"
 
 int main(int argc, char *argv[])
 {
@@ -79,6 +80,9 @@ int main(int argc, char *argv[])
             cout << i->bonus;
         cout << endl;
     }
+
+    emplace(room, devs_map, pms_map);
+
     //OUTPUT
     auto res = {1,2,3};
     FileOutput output(string(argv[1])+"_res");
