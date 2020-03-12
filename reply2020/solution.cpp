@@ -7,7 +7,8 @@
 #include "output.h"
 #include "entities.h"
 #include "clusterize.h"
-#include "emplacer.h"
+#include "islands.h"
+
 
 void print_users(FileOutput &fo, const vector<User> &users)
 {
@@ -51,7 +52,7 @@ int main(int argc, char *argv[])
         int bonus, skills_number;
 
         parser.get_next_line(company, bonus, skills_number);
-        User dev{company, bonus, {}, Role::DEV};
+        User dev{company, bonus, 0,{}  ,Role::DEV};
 
         for (int j =0; j < skills_number; j++) {
             std::string skill;
@@ -71,7 +72,7 @@ int main(int argc, char *argv[])
 
         parser.get_next_line(company, bonus);
 
-        pms.push_back(User {company, bonus, {}, Role::PM});
+        pms.push_back(User {company, bonus, 0,{}, Role::PM});
     }
 
     //CLUSTERIZE BY COMPANY
@@ -93,7 +94,7 @@ int main(int argc, char *argv[])
         cout << endl;
     }
 #endif
-    emplace(room, devs_map, pms_map);
+    auto islands = find_islands(room);
 
     //OUTPUT
     FileOutput output(string(argv[1])+"_res");

@@ -1,11 +1,12 @@
 #pragma once
 
+#include <set>
 #include "entities.h"
 #include "emplacer.h"
 
 using Island = vector<Pos>;
 
-Island find_island(Room &room, Pos &start, vector<Pos> &visited) {
+Island find_island(Room &room, Pos &start, set<Pos> &visited) {
     Island island;
 
     queue<Pos> positions;
@@ -15,10 +16,10 @@ Island find_island(Room &room, Pos &start, vector<Pos> &visited) {
         auto pos = positions.front();
         positions.pop();
 
-        visited.push_back(pos);
+        visited.insert(pos);
 
         for (auto &next : adjustment_free_places(room, pos)) {
-            if (!contains(visited, next))
+            if (visited.find(pos) == visited.end())
                 positions.push(next);
         }
     }
@@ -28,14 +29,19 @@ Island find_island(Room &room, Pos &start, vector<Pos> &visited) {
 
 vector<Island> find_islands(Room &room) {
     vector<Island> islands;
-    vector<Pos> visited;
+    set<Pos> visited;
+
+    Pos start(0, 0);
 
     while (true) {
-        auto pos = free_place(room, visited);
+        start = free_place(room, visited, start);
 
-        if (pos == NOT_SET)
+        if (start == NOT_SET)
             break;
 
-        Island island = find_island(room, pos, visited);
+        Island island = find_island(room, start, visited);
+        islands.push_back(island);
     }
+
+    return islands;
 }
