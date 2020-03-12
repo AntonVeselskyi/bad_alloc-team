@@ -1,6 +1,7 @@
 #pragma once
 
 #include <set>
+#include <iostream>
 #include "entities.h"
 #include "emplacer.h"
 
@@ -9,18 +10,22 @@ using Island = vector<Pos>;
 Island find_island(Room &room, Pos &start, set<Pos> &visited) {
     Island island;
 
-    queue<Pos> positions;
+    queue <Pos> positions;
     positions.push(start);
+
+    visited.insert(start);
 
     while (!positions.empty()) {
         auto pos = positions.front();
+
+        island.push_back(pos);
         positions.pop();
 
-        visited.insert(pos);
-
         for (auto &next : adjustment_free_places(room, pos)) {
-            if (visited.find(pos) == visited.end())
+            if (visited.find(next) == visited.end()){
                 positions.push(next);
+                visited.insert(next);
+            }
         }
     }
 
