@@ -7,29 +7,30 @@
 #include "output.h"
 
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     //GET INPUT
     FileParser parser(argv[1]);
-    int booksCount,
-            libCount,
-            days;
+    int a, b, c;
 
-    parser.get_next_line(booksCount, libCount, days);
+    parser.get_next_line(a, b, c);
 
-    for (int i = 0; i < booksCount; ++i) {
+    for (int i = 0; i < a; ++i)
+    {
         int award;
         parser.get_next_line(award);
-        global_books.emplace_back(Book{i, award});
     }
 
 
+    auto res = {1,2,3};
     FileOutput output(string(argv[1])+"_res");
     output.write_line(res.size());
 
-    for (auto it: res) {
-        output.write_line(it.lib_id, it.scanned_books.size());
-        for (auto book: it.scanned_books) {
-            output.write(book->number);
+    for (auto it: res)
+    {
+        output.write_line(it);
+        for (auto jt: {7, 7, 7}) {
+            output.write(jt);
             output.write(" ");
         }
         output.write("\n");
