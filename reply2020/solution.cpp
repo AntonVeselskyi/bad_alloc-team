@@ -6,6 +6,7 @@
 #include "getline.h"
 #include "output.h"
 #include "entities.h"
+#include "clusterize.h"
 
 int main(int argc, char *argv[])
 {
@@ -61,6 +62,24 @@ int main(int argc, char *argv[])
         pms.push_back(User {company, bonus, {}, Role::PM});
     }
 
+    //CLUSTERIZE BY COMPANY
+    //map of strings and User* vectors
+
+    //DEVs
+    auto devs_map = clusterize(devs);
+ 
+    //PMs
+    auto pms_map = clusterize(pms);
+    
+    //TEST LOG
+    for (auto &x: devs_map)
+    {
+        cout << x.first << " has workers: ";
+        for (auto &i : x.second)
+            cout << i->bonus;
+        cout << endl;
+    }
+    //OUTPUT
     auto res = {1,2,3};
     FileOutput output(string(argv[1])+"_res");
     output.write_line(res.size());
