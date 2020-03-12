@@ -12,9 +12,11 @@
 
 using Pos = std::pair<int, int>;
 
+Pos NOT_SET = Pos(-1, -1);
+
 using namespace std;
 
-enum Place {
+enum Place: char {
     UNAVAILABLE = '#',
     DEV_FREE = '_',
     PM_FREE = 'M',
@@ -35,10 +37,10 @@ struct Room {
 
 struct User {
     std::string company;
-    uint8_t bonus;
+    int bonus;
     std::vector<std::string> skills;
     Role role;
-    Pos pos;
+    Pos pos = NOT_SET;
 };
 
 #endif //REPLY2020_ENTITIES_H
