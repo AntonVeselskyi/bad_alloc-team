@@ -10,7 +10,7 @@
 #include <cstdint>
 #include <utility>
 
-using Pos = std::pair<int, int>
+using Pos = std::pair<int, int>;
 
 using namespace std;
 
@@ -19,7 +19,7 @@ enum Place {
     DEV_FREE = '_',
     PM_FREE = 'M',
     DEV_USED = '*',
-    PM_USED = '$',
+    PM_USED = '$'
 };
 
 enum Role {
@@ -29,7 +29,7 @@ enum Role {
 
 struct Room {
     int width;
-    int heigth;
+    int height;
     vector<vector<Place>> area;
 };
 
@@ -40,7 +40,5 @@ struct User {
     Role role;
     Pos pos;
 };
-
-struct
 
 #endif //REPLY2020_ENTITIES_H
