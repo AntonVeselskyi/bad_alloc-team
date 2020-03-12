@@ -7,9 +7,9 @@
 
 using namespace std;
 
-map<string, vector<User*>> clusterize(vector<User> &people)
+map<string, list<User*>> clusterize(vector<User> &people)
 {
-    map<string, vector<User*>> res;
+    map<string, list<User*>> res;
     for( auto &empl : people)
         res[empl.company].push_back(&empl);
 

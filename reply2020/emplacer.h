@@ -4,7 +4,7 @@
 #include <map>
 #include "entities.h"
 
-using Users = vector<User *>;
+using Users = list<User *>;
 using Cluster = map<string, Users>;
 
 vector<Pos> STEPS = {

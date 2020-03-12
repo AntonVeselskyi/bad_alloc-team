@@ -2,9 +2,9 @@
 
 #include <algorithm>
 #include "entities.h"
-#incldue "islands.h"
+#include "islands.h"
 
-void sort_list_by_coolness(vector<User*> &devs)
+void sort_list_by_coolness(list<User*> &devs)
 {
     for(auto &d_ptr : devs)
     {
@@ -17,22 +17,20 @@ void sort_list_by_coolness(vector<User*> &devs)
         d_ptr->avg_cluster_score = sum / (devs.size()-1);
 
     }
-    devs.sort([](auto *a, auto *b){ return *a<*b;})
+    devs.sort([](auto *a, auto *b){ return *a<*b;});
 }
 
-void sort_list_by_greed(vector<User*> &pms)
+void sort_list_by_greed(list<User*> &pms)
 {
-    pms.sort([](auto *a, auto *b){ return *a<*b;})
+    pms.sort([](auto *a, auto *b){ return *a<*b;});
 }
 
 
 
-fit_on_island(Room &room, const Island &ilnd, vector<User*> &devs, vector<User*> &pms)
+void fit_on_island(Room &room, const Island &ilnd, list<User*> &devs, list<User*> &pms)
 {
-    sort_list_by_coolness(devs);
-    sort_list_by_greed(pms);
 
-    int num_of_pms_places = count_if(ilnd.start(), ilnd.end(), [&room](Pos &pos){return get_place(room, pos) == PM_FREE;}),
+    int num_of_pms_places = count_if(ilnd.begin(), ilnd.end(), [&room](Pos &pos){return get_place(room, pos) == PM_FREE;}),
     num_of_devs_places = ilnd.size() - num_of_pms_places;
 
     for(auto pos : ilnd)
@@ -40,14 +38,14 @@ fit_on_island(Room &room, const Island &ilnd, vector<User*> &devs, vector<User*>
         if(get_place(room, pos) == DEV_FREE)
         {
             auto &dev = devs.front();
-            pm->pos = pos;
-            pms.pop_front()
+            dev->pos = pos;
+            pms.pop_front();
         }
         else
         {
             auto &pm = pms.front();
             pm->pos = pos;
-            pms.pop_front()
+            pms.pop_front();
 
         }
     }    

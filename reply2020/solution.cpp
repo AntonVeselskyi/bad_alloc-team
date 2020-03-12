@@ -8,6 +8,7 @@
 #include "entities.h"
 #include "clusterize.h"
 #include "islands.h"
+#include "fit.h"
 
 
 void print_users(FileOutput &fo, const vector<User> &users)
@@ -94,7 +95,41 @@ int main(int argc, char *argv[])
         cout << endl;
     }
 #endif
+    
+    //main logic
     auto islands = find_islands(room);
+
+    vector<string> all_companies;
+
+    for(auto &el : devs_map)
+        all_companies.push_back(el.first);
+
+    for(auto &comp : all_companies)
+    {
+        sort_list_by_coolness(devs_map[comp]);
+        sort_list_by_greed(pms_map[comp]);
+    }
+
+    while(1)
+    {
+        int cluster_id = 0;
+        for(auto &island : islands)
+        {
+            if(all_companies.empty())
+                break;
+            if(cluster_id == all_companies.size()-1)
+                cluster_id = 0;
+            if  (devs_map[(all_companies[cluster_id])].size()+pms_map[(all_companies[cluster_id])].size() < island.size())
+            {
+                all_companies.erase(all_companies.begin()+cluster_id);
+                continue;
+            }
+            fit_on_island(room, island, devs_map[(all_companies[cluster_id])], pms_map[(all_companies[cluster_id])]);
+            cluster_id++;
+
+        }
+    }
+
 
     //OUTPUT
     FileOutput output(string(argv[1])+"_res");

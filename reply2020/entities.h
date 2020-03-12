@@ -9,6 +9,7 @@
 #include <vector>
 #include <cstdint>
 #include <utility>
+#include <algorithm>
 
 
 using Pos = std::pair<int, int>;
