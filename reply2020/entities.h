@@ -12,7 +12,7 @@
 
 using Pos = std::pair<int, int>;
 
-Pos NOT_SET = Pos(-1, -1);
+const Pos NOT_SET = Pos(-1, -1);
 
 using namespace std;
 

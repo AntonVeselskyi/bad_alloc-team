@@ -9,6 +9,17 @@
 #include "clusterize.h"
 #include "emplacer.h"
 
+void print_users(FileOutput &fo, const vector<User> &users)
+{
+    for (auto us: users)
+    {
+        if (us.pos == NOT_SET)
+            fo.write_line('X');
+        else
+            fo.write_line(us.pos.first, us.pos.second);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     //GET INPUT
@@ -84,30 +95,10 @@ int main(int argc, char *argv[])
     emplace(room, devs_map, pms_map);
 
     //OUTPUT
-    auto res = {1,2,3};
     FileOutput output(string(argv[1])+"_res");
-    output.write_line(res.size());
-
-    for (auto it: res)
-    {
-        output.write_line(it);
-        for (auto jt: {7, 7, 7}) {
-            output.write(jt);
-            output.write(" ");
-        }
-        output.write("\n");
-    }
-
-
-
-    // //WRITE RESULTS TO FILE
-    // int res1 = 200, res2 = 99;
-    // float res3 = 2.2;
-    // auto res_vec = {"cool", "stuff"};
-
-    // FileOutput output(string(argv[1])+"_res");
-    // output.write_line(res1, res2, res3);
-    // for(auto el: res_vec)
-    //     output.write_line(el);
-
+    //NUM OF DEVs and PMs
+    output.write_line(devs.size(), devs.size());
+    //print out devs and pms
+    print_users(output, devs);
+    print_users(output, pms);
 }
