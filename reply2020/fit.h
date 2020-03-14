@@ -30,8 +30,8 @@ void sort_list_by_greed(list<User*> &pms)
 void fit_on_island(Room &room, const Island &ilnd, list<User*> &devs, list<User*> &pms)
 {
 
-    int num_of_pms_places = count_if(ilnd.begin(), ilnd.end(), [&room](Pos &pos){return get_place(room, pos) == PM_FREE;}),
-    num_of_devs_places = ilnd.size() - num_of_pms_places;
+    //int num_of_pms_places = count_if(ilnd.begin(), ilnd.end(), [&room](Pos pos){ return get_place(room, pos) == PM_FREE;}),
+    //num_of_devs_places = ilnd.size() - num_of_pms_places;
 
     for(auto pos : ilnd)
     {
