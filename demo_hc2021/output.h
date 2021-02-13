@@ -32,10 +32,15 @@ public:
         ofs << v;
     }
 
-    void write_pizza_result(const PizzaIndexes &pizza_indexes) {
-        this->write_line(pizza_indexes.size());
-        for (auto index:pizza_indexes) {
-            this->write_line(index);
+    void write_pizza_result(const vector<Delivery> &deliveries) {
+        this->write_line(deliveries.size());
+        for (const auto& d : deliveries) {
+            this->write(d.team);
+            for (const auto& i : d.pizzas) {
+                this->write(" ");
+                this->write(i);
+            }
+            this->write("\n");
         }
     }
 };

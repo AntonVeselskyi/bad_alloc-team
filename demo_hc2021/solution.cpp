@@ -19,7 +19,7 @@ Pizzas parsePizzas(FileParser &parser) {
         for (int j = 0; j < numberOfIngredients; j++) {
             std::string ingredient;
             parser.get_next_line(ingredient);
-            ingredients.insert(ingredient);
+            ingredients.insert(move(ingredient));
         }
         if (pizzas.find(ingredients) != pizzas.end()) {
             pizzas[ingredients].push_back(i);
@@ -29,6 +29,12 @@ Pizzas parsePizzas(FileParser &parser) {
             pizzas.insert({ingredients, temp});
         }
     }
+
+    vector<Delivery> deliveries;
+    while (auto delivery = decide(pizzas, twoPersonTeamCount, threePersonTeamCount, fourPersonTeamCount)) {
+        deliveries.push_back(move(delivery.value()));
+    }
+    output.write_pizza_result(deliveries);
     return pizzas;
 }
 

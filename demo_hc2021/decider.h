@@ -17,17 +17,17 @@ optional<Delivery> decide(Pizzas &pizzas, int& two_teams, int& three_teams, int&
 
     if (two_teams > 0) {
         auto for_two = best_pizzas_for_2(pizzas);
-        if (for_two.size() > 0)
+        if (!for_two.empty())
             options.push_back(move(for_two));
     }
     if (three_teams > 0) {
-        auto for_three = best_pizzas_for_2(pizzas);
-        if (for_three.size() > 0)
+        auto for_three = best_pizzas_for_3(pizzas);
+        if (!for_three.empty())
             options.push_back(move(for_three));
     }
     if (four_teams > 0) {
-        auto for_four = best_pizzas_for_2(pizzas);
-        if (for_four.size() > 0)
+        auto for_four = best_pizzas_for_4(pizzas);
+        if (!for_four.empty())
             options.push_back(move(for_four));
     }
 
