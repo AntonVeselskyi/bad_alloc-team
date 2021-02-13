@@ -2,6 +2,7 @@
 #include <utility>
 #include "getline.h"
 #include "output.h"
+#include "entities.h"
 
 
 int main(int argc, char *argv[]) {
