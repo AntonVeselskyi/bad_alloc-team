@@ -11,15 +11,6 @@
 #include "brute_force_pizzas.h"
 #include <cmath>
 
-size_t score(const vector<pizzas_iter>& iters) {
-    Pizza res;
-
-    for(const auto & iter:iters) {
-        res.insert(iter->first.begin(), iter->first.end());
-    }
-
-    return pow(res.size(), 2);
-}
 
 optional<Delivery> decide(Pizzas &pizzas, int& two_teams, int& three_teams, int& four_teams) {
     vector<vector<pizzas_iter>> options;

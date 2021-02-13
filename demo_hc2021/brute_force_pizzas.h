@@ -7,9 +7,19 @@
 #include <tuple>
 #include <string>
 #include <functional>
+#include <cmath>
 #include <algorithm>
 #include "entities.h"
-#include "decider.h"
+
+size_t score(const vector<pizzas_iter>& iters) {
+    Pizza res;
+
+    for(const auto & iter:iters) {
+        res.insert(iter->first.begin(), iter->first.end());
+    }
+
+    return pow(res.size(), 2);
+}
 
 vector<pizzas_iter> best_pizzas_for_2(Pizzas &pizzas)
 {
@@ -19,10 +29,10 @@ vector<pizzas_iter> best_pizzas_for_2(Pizzas &pizzas)
     size_t best_score = 0;
     pizzas_iter a_iter = begin(pizzas), b_iter = begin(pizzas);
 
-    for(auto &a : pizzas)
-        for(auto &b : pizzas)
+    for(pizzas_iter a = begin(pizzas); a != end(pizzas); a++)
+        for(pizzas_iter b = begin(pizzas); b != end(pizzas); b++)
         {
-            auto a_set = a.first, b_set = b.first;
+            auto a_set = a->first, b_set = b->first;
             set<std::string> intersection;
             std::set_intersection(begin(a_set), end(a_set), begin(b_set), end(b_set), intersection);
 
@@ -32,7 +42,6 @@ vector<pizzas_iter> best_pizzas_for_2(Pizzas &pizzas)
                 best_score = cur_res;
                 a_iter = a;
                 b_iter = b;
-
             }
         }
 
@@ -47,9 +56,9 @@ vector<pizzas_iter> best_pizzas_for_3(Pizzas &pizzas)
     size_t best_score = 0;
     pizzas_iter a_iter = begin(pizzas), b_iter = begin(pizzas), c_iter = begin(pizzas);
 
-    for(auto &a : pizzas)
-        for(auto &b : pizzas)
-        for(auto &c : pizzas)
+    for(pizzas_iter a = begin(pizzas); a != end(pizzas); a++)
+        for(pizzas_iter b = begin(pizzas); b != end(pizzas); b++)
+            for(pizzas_iter c = begin(pizzas); c != end(pizzas); c++)
         {
             size_t cur_res = score({a, b, c});
             if(best_score < cur_res)
@@ -74,10 +83,10 @@ vector<pizzas_iter> best_pizzas_for_4(Pizzas &pizzas)
     pizzas_iter a_iter = begin(pizzas), b_iter = begin(pizzas),
     c_iter = begin(pizzas), d_iter = begin(pizzas);
 
-    for(auto &a : pizzas)
-        for(auto &b : pizzas)
-            for(auto &c : pizzas)
-                for(auto &d : pizzas)
+    for(pizzas_iter a = begin(pizzas); a != end(pizzas); a++)
+        for(pizzas_iter b = begin(pizzas); b != end(pizzas); b++)
+            for(pizzas_iter c = begin(pizzas); c != end(pizzas); c++)
+                for(pizzas_iter d = begin(pizzas); d != end(pizzas); d++)
             {
                 size_t cur_res = score({a, b, c, d});
                 if(best_score < cur_res)
