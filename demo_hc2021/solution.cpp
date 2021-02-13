@@ -3,13 +3,8 @@
 #include "getline.h"
 #include "output.h"
 #include "entities.h"
-#include "decider.h"
 
-int main(int argc, char *argv[]) {
-    FileParser parser(argv[1]);
-
-    FileOutput output(string(argv[1]) + "_res");
-
+Pizzas parsePizzas(FileParser &parser) {
     Pizzas pizzas;
     int pizzaCount, twoPersonTeamCount, threePersonTeamCount, fourPersonTeamCount;
 
@@ -34,18 +29,33 @@ int main(int argc, char *argv[]) {
             pizzas.insert({ingredients, temp});
         }
     }
+    return pizzas;
+}
+
+//Plz don't remove me
+void debugPizzas(const Pizzas &pizzas) {
+    for (auto &pizza : pizzas) {
+        for (const auto &it : pizza.first)
+            cout << ' ' << it;
+        for (const auto &it : pizza.second) {
+            cout << ' ' << it;
+        }
+        cout << '\n';
+    }
+}
+
+int main(int argc, char *argv[]) {
+    FileParser parser(argv[1]);
+
+    FileOutput output(string(argv[1]) + "_res");
+
+    Pizzas pizzas = parsePizzas(parser);
 
 
 
-//    Plz don't remove me
-//    for (auto &pizza : pizzas) {
-//        for (const auto & it : pizza.first)
-//            cout << ' ' << it;
-//        for(const auto  & it : pizza.second){
-//            cout << ' ' << it;
-//        }
-//        cout << '\n';
-//    }
+
+
+    //debugPizzas(pizzas);
     //Usage example
     //output.write_pizza_result(PizzaIndexes vector)
 }
