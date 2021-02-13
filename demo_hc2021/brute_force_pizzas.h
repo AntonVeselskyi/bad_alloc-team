@@ -10,5 +10,6 @@
 #include "entities.h"
 
 auto best_pizzas_for_2(Pizzas &map) {
+
     return std::make_tuple(map.begin(), map.begin());
 }

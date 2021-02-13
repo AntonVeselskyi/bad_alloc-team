@@ -9,23 +9,31 @@
 #include <list>
 #include <string>
 #include <vector>
+#include <functional>
 #include <unordered_map>
 
 using namespace std;
 
-struct pizza_hasher {
-    size_t operator()(const std::set<std::string> &s) const {
-        //res = std::hash<std::string>(*s.begin());
-        //calculate hash here.
-        return 0;
+struct pizza_hasher
+{
+    size_t operator()(std::set<std::string> &s) const
+    {
+        std::hash<std::string> string_hasher;
+        size_t res = 23;
+
+        for(const string &str : s)
+            res ^= string_hasher(str);
+
+        return res;
     }
 };
 
 using Pizza = set<string>;
 using PizzaIndex = int;
 using PizzaIndexes = vector<PizzaIndex>;
-using Pizzas = std::unordered_map<std::set<std::string>, std::vector<int>, pizza_hasher>;
-using pizzas_iter = Pizzas::iterator;
+
+using pizza_map = std::unordered_map<std::set<std::string>, std::vector<int>, pizza_hasher>;
+using pizza_map_iter = pizza_map::iterator;
 
 struct Delivery {
     size_t team;
