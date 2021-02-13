@@ -9,11 +9,12 @@
 #include <functional>
 #include <algorithm>
 #include "entities.h"
+#include "decider.h"
 
-auto best_pizzas_for_2(Pizzas &pizzas)
+vector<pizzas_iter> best_pizzas_for_2(Pizzas &pizzas)
 {
     if(pizzas.empty())
-        return;
+        return {};
 
     size_t best_score = 0;
     pizzas_iter a_iter = begin(pizzas), b_iter = begin(pizzas);
@@ -35,5 +36,61 @@ auto best_pizzas_for_2(Pizzas &pizzas)
             }
         }
 
-            return std::make_tuple(a_iter, b_iter);
+            return {a_iter, b_iter};
 }
+
+vector<pizzas_iter> best_pizzas_for_3(Pizzas &pizzas)
+{
+    if(pizzas.empty())
+        return {};
+
+    size_t best_score = 0;
+    pizzas_iter a_iter = begin(pizzas), b_iter = begin(pizzas), c_iter = begin(pizzas);
+
+    for(auto &a : pizzas)
+        for(auto &b : pizzas)
+        for(auto &c : pizzas)
+        {
+            size_t cur_res = score({a, b, c});
+            if(best_score < cur_res)
+            {
+                best_score = cur_res;
+                a_iter = a;
+                b_iter = b;
+                c_iter = c;
+
+            }
+        }
+
+    return {a_iter, b_iter, c_iter};
+}
+
+vector<pizzas_iter> best_pizzas_for_4(Pizzas &pizzas)
+{
+    if(pizzas.empty())
+        return {};
+
+    size_t best_score = 0;
+    pizzas_iter a_iter = begin(pizzas), b_iter = begin(pizzas),
+    c_iter = begin(pizzas), d_iter = begin(pizzas);
+
+    for(auto &a : pizzas)
+        for(auto &b : pizzas)
+            for(auto &c : pizzas)
+                for(auto &d : pizzas)
+            {
+                size_t cur_res = score({a, b, c, d});
+                if(best_score < cur_res)
+                {
+                    best_score = cur_res;
+                    a_iter = a;
+                    b_iter = b;
+                    c_iter = c;
+                    d_iter = d;
+
+                }
+            }
+
+    return {a_iter, b_iter, c_iter, d_iter};
+}
+
