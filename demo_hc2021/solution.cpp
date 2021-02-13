@@ -3,8 +3,9 @@
 #include "getline.h"
 #include "output.h"
 #include "entities.h"
+#include "decider.h"
 
-Pizzas parsePizzas(FileParser &parser) {
+tuple<int, int, int, Pizzas> parsePizzas(FileParser &parser) {
     Pizzas pizzas;
     int pizzaCount, twoPersonTeamCount, threePersonTeamCount, fourPersonTeamCount;
 
@@ -30,12 +31,7 @@ Pizzas parsePizzas(FileParser &parser) {
         }
     }
 
-    vector<Delivery> deliveries;
-    while (auto delivery = decide(pizzas, twoPersonTeamCount, threePersonTeamCount, fourPersonTeamCount)) {
-        deliveries.push_back(move(delivery.value()));
-    }
-    output.write_pizza_result(deliveries);
-    return pizzas;
+    return {twoPersonTeamCount, threePersonTeamCount, fourPersonTeamCount, pizzas};
 }
 
 //Plz don't remove me
@@ -55,11 +51,13 @@ int main(int argc, char *argv[]) {
 
     FileOutput output(string(argv[1]) + "_res");
 
-    Pizzas pizzas = parsePizzas(parser);
+    auto [twoPersonTeamCount, threePersonTeamCount, fourPersonTeamCount, pizzas] = parsePizzas(parser);
 
-
-
-
+    vector<Delivery> deliveries;
+    while (auto delivery = decide(pizzas, twoPersonTeamCount, threePersonTeamCount, fourPersonTeamCount)) {
+        deliveries.push_back(move(delivery.value()));
+    }
+    output.write_pizza_result(deliveries);
 
     //debugPizzas(pizzas);
     //Usage example
