@@ -9,10 +9,16 @@
 
 #include "entities.h"
 #include "brute_force_pizzas.h"
+#include <cmath>
 
+int score(const vector<pizzas_iter>& iters) {
+    Pizza res;
 
-int score(vector<pizzas_iter>& iters) {
+    for(pizzas_iter &iter:iters) {
+        res.insert(iter->first.begin(), iter->first.end());
+    }
 
+    return pow(res.count(), 2);
 }
 
 optional<Delivery> decide(Pizzas &pizzas, int& two_teams, int& three_teams, int& four_teams) {
