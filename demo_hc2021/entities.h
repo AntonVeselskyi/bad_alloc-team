@@ -8,15 +8,19 @@
 #include <set>
 #include <list>
 #include <string>
+#include <vector>
+#include <unordered_map>
 
 using namespace std;
 
-using Pizza = set<reference_wrapper<string>>;
-using PizzaIndex = size_t;
+using Pizza = set<string>;
+using PizzaIndex = int;
+using PizzaIndexes = vector<PizzaIndex>;
+using Pizzas = std::unordered_map<Pizza, PizzaIndex>;
 
 struct Delivery {
     size_t team;
-    list<PizzaIndex> pizzas;
+    PizzaIndexes pizzas;
 };
 
 #endif //HC2018_ENTITIES_H
