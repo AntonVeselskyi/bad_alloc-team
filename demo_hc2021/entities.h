@@ -16,7 +16,7 @@ using namespace std;
 
 struct pizza_hasher
 {
-    size_t operator()(std::set<std::string> &s) const
+    size_t operator()(const std::set<std::string> &s) const
     {
         std::hash<std::string> string_hasher;
         size_t res = 23;
