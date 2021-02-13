@@ -1,6 +1,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "entities.h"
 
 using std::ofstream;
 using std::stringstream;
@@ -27,5 +28,12 @@ public:
     template<typename T>
     void write(T &v) {
         ofs << v;
+    }
+
+    void write_pizza_result(const PizzaIndexes &pizza_indexes) {
+        this->write_line(pizza_indexes.size());
+        for (auto index:pizza_indexes) {
+            this->write_line(index);
+        }
     }
 };
