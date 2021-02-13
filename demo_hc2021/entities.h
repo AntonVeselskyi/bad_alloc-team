@@ -32,8 +32,8 @@ using Pizza = set<string>;
 using PizzaIndex = int;
 using PizzaIndexes = vector<PizzaIndex>;
 
-using pizza_map = std::unordered_map<std::set<std::string>, std::vector<int>, pizza_hasher>;
-using pizza_map_iter = pizza_map::iterator;
+using Pizzas = std::unordered_map<std::set<std::string>, std::vector<int>, pizza_hasher>;
+using pizzas_iter = Pizzas::iterator;
 
 struct Delivery {
     size_t team;
