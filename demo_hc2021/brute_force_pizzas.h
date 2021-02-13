@@ -7,6 +7,7 @@
 #include <tuple>
 #include <string>
 #include <functional>
+#include <algorithm>
 #include "entities.h"
 
 auto best_pizzas_for_2(Pizzas &pizzas)
