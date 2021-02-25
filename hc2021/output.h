@@ -34,6 +34,15 @@ public:
     }
 
     void print_result(vector<Intersection> &intersections, StreetIndex &street_index) {
+        intersections.erase(
+                std::remove_if(
+                        intersections.begin(),
+                        intersections.end(),
+                        [](Intersection &a) { return a.schedule.empty(); }
+                ),
+                intersections.end()
+        );
+
         write_line(intersections.size());
 
         for (auto &intersection:intersections) {

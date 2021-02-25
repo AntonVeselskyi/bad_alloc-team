@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
     }
 
     auto streetLoad = count_street_load(cars);
-    create_proportional_schedulers(intersections, streetLoad, simulationDuration);
+    create_proportional_schedulers(intersections, streetLoad, simulationDuration, streets);
 
     output.print_result(intersections, streetIndex);
 #ifdef DEBUG
