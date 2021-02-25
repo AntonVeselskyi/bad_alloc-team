@@ -1,6 +1,10 @@
+#pragma once
+
 #include <fstream>
 #include <sstream>
 #include <string>
+
+#include "entities.h"
 
 using std::ofstream;
 using std::stringstream;
@@ -28,4 +32,18 @@ public:
     void write(T &v) {
         ofs << v;
     }
+
+    void print_result(vector<Intersection> &intersections, StreetIndex &street_index) {
+        write_line(intersections.size());
+
+        for (auto &intersection:intersections) {
+            write_line(intersection.id);
+            write_line(intersection.schedule.size());
+
+            for (auto &street:intersection.schedule) {
+                write_line(street_index[street.first], street.second);
+            }
+        }
+    }
 };
+

@@ -10,6 +10,8 @@
 #include <utility>
 #include <unordered_map>
 
+using namespace std;
+
 using StreetID = size_t;
 using CarID = size_t;
 using IntersectionID = size_t;
