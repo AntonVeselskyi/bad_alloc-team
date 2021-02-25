@@ -22,7 +22,6 @@ struct Car {
     CarID id;
     size_t road_time = 0;
     std::vector<StreetID> path;
-    bool is_moving = false;
 };
 
 struct Street {
@@ -36,28 +35,6 @@ struct Intersection {
     std::list<StreetID> in;
     std::list<StreetID> out;
     TrafficLightSchedules schedule;
-    TrafficLightSchedules::iterator current_traffic_light;
-    size_t switch_time;
-
-    StreetID activeStreet() const {
-        return current_traffic_light->first;
-    }
-
-    void init() {
-        current_traffic_light = schedule.begin();
-        switch_time = current_traffic_light->second;
-    }
-
-    void tick() {
-        switch_time--;
-        if (switch_time <= 0) {
-            current_traffic_light++;
-            if (current_traffic_light == schedule.end()) {
-                current_traffic_light = schedule.begin();
-            }
-            switch_time = current_traffic_light->second;
-        }
-    }
 };
 
 class StreetIndex {

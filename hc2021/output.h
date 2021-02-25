@@ -41,7 +41,9 @@ public:
             write_line(intersection.schedule.size());
 
             for (auto &street:intersection.schedule) {
-                write_line(street_index[street.first], street.second);
+                if (street.second != 0) {
+                    write_line(street_index[street.first], street.second);
+                }
             }
         }
     }
