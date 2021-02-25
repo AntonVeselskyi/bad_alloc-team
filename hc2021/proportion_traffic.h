@@ -33,14 +33,13 @@ void create_proportional_schedulers(
 
             unsigned total_intersect_load = 0;
             for (auto &it : intersect.in)
-                total_intersect_load += ((float) streets_load[it]) / streets[it].duration;
+                total_intersect_load += streets_load[it] * streets[it].duration;
 
             if (!total_intersect_load)
                 total_intersect_load = 1;
             for (auto &in_street : intersect.in) {
                 size_t green_seconds_for_street = (size_t) floor(
-                        ((float) streets_load[in_street] / streets[in_street].duration) * CYCLE_LENGTH /
-                        total_intersect_load
+                        (streets_load[in_street] * streets[in_street].duration) * CYCLE_LENGTH / total_intersect_load
                 );
                 if (green_seconds_for_street)
                     intersect.schedule.push_back({in_street, green_seconds_for_street});

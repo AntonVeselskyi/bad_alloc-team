@@ -38,6 +38,7 @@ int main(int argc, char *argv[]) {
         intersections[from].id = from;
         intersections[to].in.push_back(street.id);
         intersections[to].id = to;
+        streets.push_back(move(street));
     }
     for (int i = 0; i < numberOfCars; i++) {
         int numberOfStreetsForCar;
