@@ -3,6 +3,7 @@
 #include "getline.h"
 #include "output.h"
 #include "entities.h"
+#include "proportion_traffic.h"
 
 
 int main(int argc, char *argv[]) {
@@ -50,6 +51,11 @@ int main(int argc, char *argv[]) {
         }
         cars.push_back(car);
     }
+
+    auto streetLoad = count_street_load(cars);
+    create_proportional_schedulers(intersections, streetLoad);
+
+    output.print_result(intersections, streetIndex);
 #ifdef DEBUG
     for (int i = 0; i < numberOfStreets; i++) {
         cout << " " << streetIndex[i];
