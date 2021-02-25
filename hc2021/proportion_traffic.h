@@ -29,7 +29,7 @@ void create_proportional_schedulers(std::vector<Intersection> &intersects, std::
     {
         //traffic lights only on IN streets
         {
-            size_t CYCLE_LENGTH = std::gcd(sim_length, intersect.in.size() );
+            size_t CYCLE_LENGTH = sim_length;
 
             //measured in cars
             unsigned total_intersect_load = std::accumulate(begin(intersect.in), end(intersect.in), 0,
