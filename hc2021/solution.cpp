@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     FileOutput output(string(argv[1]) + "_res");
 
     StreetIndex streetIndex;
-    int simulationDuration, numberOfIntersections,
+    unsigned simulationDuration, numberOfIntersections,
             numberOfStreets, numberOfCars, finishBonus;
 
     parser.get_next_line(simulationDuration, numberOfIntersections,
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
     }
 
     auto streetLoad = count_street_load(cars);
-    create_proportional_schedulers(intersections, streetLoad);
+    create_proportional_schedulers(intersections, streetLoad, simulationDuration);
 
     output.print_result(intersections, streetIndex);
 #ifdef DEBUG

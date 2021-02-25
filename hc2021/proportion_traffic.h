@@ -23,13 +23,13 @@ std::map<StreetID, unsigned> count_street_load(const std::vector<Car> &cars)
 }
 
 //ALTER THE 1st PARAMETER
-void create_proportional_schedulers(std::vector<Intersection> &intersects, std::map<StreetID, unsigned> streets_load)
+void create_proportional_schedulers(std::vector<Intersection> &intersects, std::map<StreetID, unsigned> streets_load, size_t sim_length)
 {
     for(auto &intersect : intersects)
     {
         //traffic lights only on IN streets
         {
-            constexpr size_t CYCLE_LENGTH = 24;
+            size_t CYCLE_LENGTH = std::lcm(sim_length, intersect.in.size() );
 
             //measured in cars
             unsigned total_intersect_load = std::accumulate(begin(intersect.in), end(intersect.in), 0,
