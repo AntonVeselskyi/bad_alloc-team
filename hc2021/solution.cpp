@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
         }
         cars.push_back(car);
     }
-
+#ifdef DEBUG
     for (int i = 0; i < numberOfStreets; i++) {
         cout << " " << streetIndex[i];
         cout << '\n';
@@ -78,4 +78,5 @@ int main(int argc, char *argv[]) {
             cout << ' ' << streetIndex[out] << endl;
         }
     }
+#endif
 }
