@@ -37,6 +37,8 @@ void create_proportional_schedulers(std::vector<Intersection> &intersects, std::
                                                             {
                                                                 return streets_load[a] + streets_load[b];
                                                             });
+            if(!total_intersect_load)
+                total_intersect_load = 1;
             for(auto &in_street : intersect.in)
             {
                 size_t green_seconds_for_street = (size_t)floor(streets_load[in_street] * CYCLE_LENGTH / total_intersect_load);
