@@ -8,6 +8,7 @@
 #include <vector>
 #include <list>
 #include <utility>
+#include <unordered_map>
 
 using StreetID = size_t;
 using CarID = size_t;
@@ -31,6 +32,32 @@ struct Intersection {
     std::list<StreetID> in;
     std::list<StreetID> out;
     std::vector<TrafficLightSchedule> schedule;
+};
+
+class StreetIndex {
+private:
+    std::unordered_map<StreetID, std::string> id_to_name;
+    std::unordered_map<std::string, StreetID> name_to_id;
+    StreetID counter = 0;
+public:
+    StreetID add(std::string &name) {
+        auto it = name_to_id.find(name);
+        if (it == name_to_id.end()) {
+            name_to_id[name] = counter;
+            id_to_name[counter] = name;
+            return counter++;
+        }
+
+        return it->second;
+    }
+
+    std::string &operator[](StreetID id) {
+        return id_to_name[id];
+    }
+
+    StreetID operator[](std::string &name) {
+        return name_to_id[name];
+    }
 };
 
 #endif //HC2018_ENTITIES_H
