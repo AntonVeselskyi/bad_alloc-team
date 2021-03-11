@@ -19,6 +19,9 @@ void move_antenna_from_border(Antenna &antenna, size_t width, size_t height)
     size_t left_shift = 0;
     size_t right_shift = 0;
 
+    size_t range_tmp = antenna.range;
+    antenna.range *= 0.8;
+
     if (antenna.range > max_bottom_dist) {
         bottom_shift = antenna.range - max_bottom_dist;
     }
@@ -61,6 +64,8 @@ void move_antenna_from_border(Antenna &antenna, size_t width, size_t height)
     } else if (bottom_shift) {
         antenna.y -= bottom_shift;
     }
+
+    antenna.range = range_tmp;
 }
 
 #endif //DEMO_HC2021_MOVER_H
