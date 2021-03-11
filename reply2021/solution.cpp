@@ -33,10 +33,11 @@ int main(int argc, char *argv[])
     a_storage.reserve(antennas_num);
     {
         size_t a, b;
-        for (size_t n = antennas_num; n--;)
+        for (size_t id = 0; id <  antennas_num; id++)
         {
+
             parser.get_next_line(a,b);
-            a_storage.emplace_back(Antenna{a,b});
+            a_storage.emplace_back(Antenna{a,b, id});
         }
     }
 
