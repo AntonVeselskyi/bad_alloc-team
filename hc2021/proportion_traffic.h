@@ -5,6 +5,7 @@
 #include <numeric>
 #include <cmath>
 #include <utility>
+#include <random>
 #include "entities.h"
 
 #pragma once
@@ -27,17 +28,40 @@ void create_proportional_schedulers(
         size_t sim_length,
         std::vector<Street> &streets
 ) {
+    auto rd = std::random_device{};
+    auto rng = std::default_random_engine{rd()};
+
     for (auto &intersect : intersects) {
         //traffic lights only on IN streets
         {
             std::vector<std::pair<StreetID, int>> load;
+
             for (auto &in_street : intersect.in) {
                 if (streets_load[in_street])
                     load.emplace_back(in_street, streets_load[in_street]);
             }
 
+            if (load.empty())
+                continue;
+
+            std::sort(
+                    load.begin(),
+                    load.end(),
+                    [](auto &a, auto &b) { return a.second > b.second; }
+            );
+
+            int max_score = std::min((int) sim_length, 2);
+            std::vector<std::pair<StreetID, int>> result;
+
             for (auto &it: load) {
-                intersect.schedule.push_back({it.first, 1});
+                result.emplace_back(it.first, max_score);
+                if (max_score > 1)
+                    max_score--;
+            }
+
+            std::shuffle(result.begin(), result.end(), rng);
+            for (auto &it: result) {
+                intersect.schedule.push_back(it);
             }
         }
     }
