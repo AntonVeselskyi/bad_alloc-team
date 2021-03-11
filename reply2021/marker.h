@@ -21,9 +21,13 @@ void mark_as_covered(Antenna &antenna, Building &building, vector<vector<Buildin
             auto j = r - i;
 
             marker(antenna.x + i, antenna.y + j);
-            marker(antenna.x - i, antenna.y + j);
             marker(antenna.x + i, antenna.y - j);
+            marker(antenna.x - i, antenna.y + j);
             marker(antenna.x - i, antenna.y - j);
+            marker(antenna.x + j, antenna.y + i);
+            marker(antenna.x + j, antenna.y - i);
+            marker(antenna.x - j, antenna.y + i);
+            marker(antenna.x - j, antenna.y - i);
         }
     }
 }
