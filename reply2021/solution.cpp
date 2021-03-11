@@ -1,5 +1,6 @@
 #include <iostream>
 #include <utility>
+#include <algorithm>
 #include "getline.h"
 #include "output.h"
 #include "entities.h"
@@ -39,6 +40,18 @@ int main(int argc, char *argv[])
         }
     }
 
-    output.print_result();
+
+    //straight forward solution
+    std::sort(begin(b_storage), end(b_storage),
+              [](const Building &a, const Building &b)
+              {
+                    return a.latency_w > b.latency_w;
+              });
+    for(int i = 0; i < antennas_num && i < buildings_num; ++i)
+    {
+        a_storage[i].x = b_storage[i].x;
+        a_storage[i].y = b_storage[i].y;
+    }
+    output.print_result(a_storage);
 
 }

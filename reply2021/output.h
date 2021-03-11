@@ -36,10 +36,11 @@ public:
         ofs << v;
     }
 
-    void print_result(vector<Antena> &&output_antennas = vector<Antena>())
+    void print_result(const vector<Antenna> &output_antennas = vector<Antenna>())
     {
         write_line(output_antennas.size());
-        for (auto antenna: output_antennas) {
+        for (auto antenna: output_antennas)
+        {
             write_line(antenna.id, antenna.x, antenna.y);
         }
     }
