@@ -20,9 +20,9 @@ int main(int argc, char *argv[])
     parser.get_next_line(map_width, map_height);
     parser.get_next_line(buildings_num, antennas_num, reward);
 
-    vector<vector<Building*>> map(map_height);
+    vector<vector<Building*>> map(map_height+1);
     for(auto &row : map)
-        row = vector<Building*>(map_width);
+        row = vector<Building*>(map_width+1);
 
     vector<Building> b_storage;
     b_storage.reserve(buildings_num);
@@ -55,11 +55,23 @@ int main(int argc, char *argv[])
               {
                     return a.latency_w > b.latency_w;
               });
-    for(int i = 0; i < antennas_num && i < buildings_num; ++i)
+
+    std::sort(begin(a_storage), end(a_storage),
+              [](const Antenna &a, const Antenna &b)
+              {
+                  return a.range > b.range;
+              });
+
+    for(int i = 0, j = 0; i < antennas_num && i < buildings_num; ++j)
     {
-        a_storage[i].x = b_storage[i].x;
-        a_storage[i].y = b_storage[i].y;
-        mark_as_covered(a_storage[i], b_storage[i], map);
+        if(b_storage[j].visited)
+            continue;
+
+        a_storage[i].x = b_storage[j].x;
+        a_storage[i].y = b_storage[j].y;
+        mark_as_covered(a_storage[i], b_storage[j], map);
+
+        ++i;
     }
     output.print_result(a_storage);
 
