@@ -12,6 +12,7 @@
 struct Building
 {
     std::size_t x,y, latency_w, connection_speed_w;
+    bool visited = false;
 };
 
 struct Antenna
