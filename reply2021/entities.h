@@ -17,5 +17,7 @@ struct Building
 struct Antenna
 {
     std::size_t range, connection_speed;
+    std::size_t id, x, y;
+
 };
 using namespace std;
