@@ -9,8 +9,13 @@ void mark_as_covered(Antenna &antenna, Building &building, vector<vector<Buildin
         auto j = antenna.range - i;
 
         auto marker = [&](auto x, auto y) {
+            if (!(0 <= y && y < grid.size()))
+                return;
+            if (!(0 <= x && x < grid[y].size()))
+                return;
+
             auto b = grid[y][x];
-            if (b != NULL)
+            if (b != nullptr)
                 b->visited = true;
         };
 
