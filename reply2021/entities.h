@@ -9,4 +9,13 @@
 #include <utility>
 #include <unordered_map>
 
+struct Building
+{
+    std::size_t x,y, latency_w, connection_speed_w;
+};
+
+struct Antenna
+{
+    std::size_t range, connection_speed;
+};
 using namespace std;
