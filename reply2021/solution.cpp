@@ -24,8 +24,7 @@ int main(int argc, char *argv[])
     for(auto &row : map)
         row = vector<Building*>(map_width+1);
 
-    vector<Building> b_storage;
-    b_storage.reserve(buildings_num);
+    list<Building> b_storage;
     {
         size_t x, y, latency_w, connection_speed_w;
         for (size_t n = buildings_num; n--;)
@@ -50,26 +49,28 @@ int main(int argc, char *argv[])
 
 
     //straight forward solution
-    std::sort(begin(b_storage), end(b_storage),
+    b_storage.sort(
               [](const Building &a, const Building &b)
               {
-                    return a.latency_w > b.latency_w;
+                  return a.latency_w !=  b.latency_w ? a.latency_w > b.latency_w : a.connection_speed_w > a.connection_speed_w;
               });
 
     std::sort(begin(a_storage), end(a_storage),
               [](const Antenna &a, const Antenna &b)
               {
-                  return a.range > b.range;
+                  return a.range !=  b.range ? a.range > b.range : a.connection_speed > a.connection_speed;
               });
 
-    for(int i = 0, j = 0; i < antennas_num && i < buildings_num; ++j)
+    for(auto [i, b_iter] = std::tuple{0, begin(b_storage)};
+        i < antennas_num && b_iter != end(b_storage);\
+        ++b_iter)
     {
-        if(b_storage[j].visited)
+        if(b_iter->visited)
             continue;
 
-        a_storage[i].x = b_storage[j].x;
-        a_storage[i].y = b_storage[j].y;
-        mark_as_covered(a_storage[i], b_storage[j], map);
+        a_storage[i].x = b_iter->x;
+        a_storage[i].y = b_iter->y;
+        mark_as_covered(a_storage[i], *b_iter, map);
 
         ++i;
     }
