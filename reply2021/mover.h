@@ -65,6 +65,9 @@ void move_antenna_from_border(Antenna &antenna, size_t width, size_t height)
         antenna.y -= bottom_shift;
     }
 
+    if (antenna.x >= width || antenna.y >= height)
+        cout<<"ERROR"<<endl;
+
     antenna.range = range_tmp;
 }
 
