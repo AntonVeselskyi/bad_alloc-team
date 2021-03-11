@@ -52,13 +52,13 @@ int main(int argc, char *argv[])
     b_storage.sort(
               [](const Building &a, const Building &b)
               {
-                  return a.latency_w !=  b.latency_w ? a.latency_w > b.latency_w : a.connection_speed_w > a.connection_speed_w;
+                  return a.latency_w !=  b.latency_w ? a.latency_w > b.latency_w : a.connection_speed_w > b.connection_speed_w;
               });
 
     std::sort(begin(a_storage), end(a_storage),
               [](const Antenna &a, const Antenna &b)
               {
-                  return a.range !=  b.range ? a.range > b.range : a.connection_speed > a.connection_speed;
+                  return a.range !=  b.range ? a.range > b.range : a.connection_speed > b.connection_speed;
               });
 
     for(auto [i, b_iter] = std::tuple{0, begin(b_storage)};
