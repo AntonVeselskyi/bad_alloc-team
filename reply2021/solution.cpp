@@ -4,7 +4,7 @@
 #include "getline.h"
 #include "output.h"
 #include "entities.h"
-
+#include "marker.h"
 
 int main(int argc, char *argv[])
 {
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
         {
             parser.get_next_line(x, y, latency_w, connection_speed_w);
             b_storage.emplace_back(Building{x, y, latency_w, connection_speed_w});
-            map[x][y] = &b_storage.back();
+            map[y][x] = &b_storage.back();
         }
     }
 
@@ -59,6 +59,7 @@ int main(int argc, char *argv[])
     {
         a_storage[i].x = b_storage[i].x;
         a_storage[i].y = b_storage[i].y;
+        mark_as_covered(a_storage[i], b_storage[i], map);
     }
     output.print_result(a_storage);
 
