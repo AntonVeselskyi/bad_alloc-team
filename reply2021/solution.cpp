@@ -5,6 +5,7 @@
 #include "output.h"
 #include "entities.h"
 #include "marker.h"
+#include "mover.h"
 
 int main(int argc, char *argv[])
 {
@@ -70,6 +71,8 @@ int main(int argc, char *argv[])
 
         a_storage[i].x = b_iter->x;
         a_storage[i].y = b_iter->y;
+        move_antenna_from_border(a_storage[i], map_width, map_height);
+
         mark_as_covered(a_storage[i], *b_iter, map);
 
         ++i;
