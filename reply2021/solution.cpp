@@ -13,10 +13,16 @@ int main(int argc, char *argv[])
     FileOutput output(string(argv[1]) + "_res");
 
 
+
+
     unsigned map_width, map_height,
         buildings_num, antennas_num, reward;
     parser.get_next_line(map_width, map_height);
     parser.get_next_line(buildings_num, antennas_num, reward);
+
+    vector<vector<Building*>> map(map_height);
+    for(auto &row : map)
+        row = vector<Building*>(map_width);
 
     vector<Building> b_storage;
     b_storage.reserve(buildings_num);
@@ -26,6 +32,7 @@ int main(int argc, char *argv[])
         {
             parser.get_next_line(x, y, latency_w, connection_speed_w);
             b_storage.emplace_back(Building{x, y, latency_w, connection_speed_w});
+            map[x][y] = &b_storage.back();
         }
     }
 
