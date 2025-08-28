@@ -19,10 +19,8 @@ class FileParser
         if (!ifs.is_open())
             return;
 
-        //sizeof... -- Returns the number of elements in a parameter pack.
         //we will apply the action in () for every element
         //and return 0 for dummy
-        //int dummy[sizeof...(args)]
         auto dummy = {(ifs >> args,0)...};
     }
 
